@@ -66,8 +66,8 @@ class HomeViewController: UIViewController {
         setupViews()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
         NetworkController.shared.imageCache.removeAllObjects()
     }
@@ -80,17 +80,17 @@ class HomeViewController: UIViewController {
         view.addSubview(searchButton)
         
         searchbar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        searchbar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        searchbar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        searchbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        searchbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         searchbar.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         titleLabel.bottomAnchor.constraint(equalTo: searchbar.topAnchor, constant: -8).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         
         searchButton.topAnchor.constraint(equalTo: searchbar.bottomAnchor, constant: 8).isActive = true
-        searchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        searchButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        searchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
         dismissKeyboard()
         
         if let searchTerm = searchbar.text {
-            let searchTableVC = SearchTableViewController()
+            let searchTableVC = SearchViewController()
             searchTableVC.searchTerm = searchTerm
             navigationController?.pushViewController(searchTableVC, animated: true)
         }

@@ -30,6 +30,8 @@ class CustomImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
+        
         self.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

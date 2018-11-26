@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchTableViewController: UITableViewController {
+class SearchViewController: UIViewController {
     
     //MARK:- Properties
     
@@ -26,6 +26,7 @@ class SearchTableViewController: UITableViewController {
             didReachBottom = false
         }
     }
+    
     let cellId: String = "SearchCell"
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,6 +34,14 @@ class SearchTableViewController: UITableViewController {
     }
     
     //MARK:- Objects
+    
+    let tableView: UITableView = {
+        let view = UITableView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = mainGray
+        view.separatorStyle = .none
+        return view
+    }()
     
     let searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
@@ -59,6 +68,7 @@ class SearchTableViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isHidden = false
+        navigationItem.leftBarButtonItem?.tintColor = .white
 
         setupSearchbar()
         setupTableView()
@@ -83,8 +93,16 @@ class SearchTableViewController: UITableViewController {
     }
     
     private func setupTableView() {
-        tableView.separatorStyle = .none
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        view.addSubview(tableView)
+        
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     private func getFirstPage() {
@@ -126,18 +144,21 @@ class SearchTableViewController: UITableViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+}
 
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 300
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ImageTableViewCell else {
             return UITableViewCell()
         }
@@ -156,7 +177,7 @@ class SearchTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Cell tapped")
         guard let cell = tableView.cellForRow(at: indexPath) as? ImageTableViewCell else {
             print("ERROR: Cannot get tapped cell")
@@ -172,7 +193,7 @@ class SearchTableViewController: UITableViewController {
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let  height = scrollView.frame.size.height
         let contentYoffset = scrollView.contentOffset.y
         let distanceFromBottom = scrollView.contentSize.height - contentYoffset
@@ -190,7 +211,7 @@ class SearchTableViewController: UITableViewController {
 }
 
 
-extension SearchTableViewController: UISearchBarDelegate {
+extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         getFirstPage()
     }

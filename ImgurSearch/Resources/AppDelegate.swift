@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: homeViewController)
         
         navigationController.navigationBar.barTintColor = .black
-        navigationController.navigationBar.tintColor = .white
+        navigationController.navigationBar.tintColor = .lightGray
         navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
 //        navigationController.navigationBar.shadowImage = UIImage()

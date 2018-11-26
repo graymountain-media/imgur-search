@@ -67,23 +67,4 @@ class NetworkController {
             }
         }
     }
-    
-    
-//    func fetchImage(withURLString urlString: String, completion: @escaping(UIImage?) -> Void) {
-//        guard let url = URL(string: urlString) else {
-//            print("Error making URL")
-//            return
-//        }
-//        Alamofire.request(url, method: .get).responseImage { response in
-//            guard let image = response.result.value else {
-//                print("Error fetching image for url: \(url)")
-//                completion(nil)
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                completion(image)
-//            }
-//
-//        }
-//    }
 }

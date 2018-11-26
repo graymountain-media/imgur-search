@@ -54,6 +54,7 @@ class ImageTableViewCell: UITableViewCell {
         customImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         customImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         customImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        customImageView.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
         
         titleView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         titleView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
